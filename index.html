@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Towards More Practical Group Activity Detection: A New Benchmark and Model">
+  <meta name="keywords" content="GAD, CAFE, Dataset">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CAFE</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!--<link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Towards More Practical Group Activity Detection:<br>A New Benchmark and Model</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://dk-kim.github.io/">Dongkeun Kim</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/youngkil-song-8936792a3">Youngkil Song</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://cvlab.postech.ac.kr/~mcho/">Minsu Cho</a><sup>1,2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://suhakwak.github.io/">Suha Kwak</a><sup>1,2</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Department of CSE, POSTECH</span>
+            <span class="author-block"><sup>2</sup>Graduate School of AI, POSTECH</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2312.02878"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/dk-kim/CAFE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://cvlab.postech.ac.kr/research/CAFE/cafe_sample.zip"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data (not full dataset, will be updated soon)</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Raw videos of Café</h2>
+        <table class="results">
+          <tr class="item">
+              <td class="item-img">
+                  <video muted autoplay loop width="480">
+                      <source src="static/videos/PlaceA_reduced.mp4" type="video/mp4">
+                  </video>
+              </td>
+              <td>
+                  <video muted autoplay loop width="480">
+                      <source src="static/videos/PlaceB_reduced.mp4" type="video/mp4">
+                  </video>
+              </td>
+          </tr>
+          <tr class="legend"><td class="is-size-5 has-text-centered">Place A</td><td class="is-size-5 has-text-centered">Place B</td></tr>
+          <tr class="item">
+            <td class="item-img">
+                <video muted autoplay loop width="480">
+                    <source src="static/videos/PlaceC_reduced.mp4" type="video/mp4">
+                </video>
+            </td>
+            <td>
+              <video muted autoplay loop width="480">
+                  <source src="static/videos/PlaceD_reduced.mp4" type="video/mp4">
+              </video>
+          </td>
+          </tr>
+          <tr class="legend"><td class="is-size-5 has-text-centered">Place C</td><td class="is-size-5 has-text-centered">Place D</td></tr>
+          <tr class="item">
+              <td class="item-img">
+                <video muted autoplay loop width="480">
+                    <source src="static/videos/PlaceE_reduced.mp4" type="video/mp4">
+                </video>
+            </td>
+            <td>
+                <video muted autoplay loop width="480">
+                    <source src="static/videos/PlaceF_reduced.mp4" type="video/mp4">
+                </video>
+            </td>
+          </tr>
+          <tr class="legend"><td class="is-size-5 has-text-centered">Place E</td><td class="is-size-5 has-text-centered">Place F</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--
+<div class="columns is-multiline is-centered has-text-centered">
+  <div class="columns">
+    <div class="column">
+      <video muted autoplay loop width="560" height="315">
+        <source src="static/videos/PlaceA_reduced.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="column">
+      <video muted autoplay loop width="560" height="315">
+        <source src="static/videos/PlaceB_reduced.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <video muted autoplay loop width="560" height="315">
+        <source src="static/videos/PlaceC_reduced.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="column">
+      <video muted autoplay loop width="560" height="315">
+        <source src="static/videos/PlaceD_reduced.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <video muted autoplay loop width="560" height="315">
+        <source src="static/videos/PlaceE_reduced.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="column">
+      <video muted autoplay loop width="560" height="315">
+        <source src="static/videos/PlaceF_reduced.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+-->
+
+
+<!--
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section>
+-->
+
+
+<!--
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Group activity detection (GAD) is the task of identifying members of each group and classifying the activity of the group at the same time in a video. 
+            While GAD has been studied recently, there is still much room for improvement in both dataset and methodology due to their limited capability to address practical GAD scenarios. 
+          </p>
+          <p>
+            To resolve these issues, we first present a new dataset, dubbed Café.
+            Unlike existing datasets, Café is constructed primarily for GAD and presents more practical evaluation scenarios and metrics, as well as being large-scale and providing rich annotations. 
+          </p>
+          <p>
+            Along with the dataset, we propose a new GAD model that deals with an unknown number of groups and latent group members efficiently and effectively. 
+            We evaluated our model on three datasets including Café, where it outperformed previous work in terms of both accuracy and inference speed. 
+            Both our dataset and code base will be open to the public to promote future research on GAD.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Café dataset</h2>
+        <div class="column is-vcentered">
+          <img src="static/images/dataset_overview.png" class="interpolation-image"/>
+        </div>
+        <p>Examples of videos in Caf\'e. The videos were taken at six different places and four cameras with different viewpoints.</p>
+      </div>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Proposed Model</h2>
+        <div class="column is-vcentered">
+          <img src="static/images/overall_architecture.png" class="interpolation-image"/>
+        </div>
+        <p>(Left) Overall architecture of our model. (Right) Detailed architecture of the Grouping Transformer. </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+      <div class="columns is-centered">
+          <div class="column is-full-width">
+              <h2 class="title is-3">Qualitative Results</h2>
+              <table class="results">
+                <tr class="legend"><td class="is-size-5 has-text-centered">Input frames</td><td class="is-size-5 has-text-centered">Ours</td><td class="is-size-5 has-text-centered">Ground-truth</td></tr>
+                <tr class="item">
+                    <td class="item-img">
+                        <img src="static/figures/input_1.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/pred_1.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/gt_1.gif" class="img" width="360">
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td class="item-img">
+                        <img src="static/figures/input_3.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/pred_3.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/gt_3.gif" class="img" width="360">
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td class="item-img">
+                        <img src="static/figures/input_5.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/pred_5.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/gt_5.gif" class="img" width="360">
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td class="item-img">
+                        <img src="static/figures/input_6.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/pred_6.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/gt_6.gif" class="img" width="360">
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td class="item-img">
+                        <img src="static/figures/input_4.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/pred_4.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/gt_4.gif" class="img" width="360">
+                    </td>
+                </tr>
+                <tr class="item">
+                    <td class="item-img">
+                        <img src="static/figures/input_2.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/pred_2.gif" class="img" width="360">
+                    </td>
+                    <td class="item-img">
+                        <img src="static/figures/gt_2.gif" class="img" width="360">
+                    </td>
+                </tr>
+            </table>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<!--
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+-->
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
